@@ -32,22 +32,32 @@ namespace Programming_Exercise_1
         private static List<EmployeeSchedule> GetScheduleByEmployee(string schedule)
         {
             List<EmployeeSchedule> employeeSchedules = new();
+
+            //Divide the schedule per employee
             List<string> scheduleByPerson = schedule.Split('\n').ToList();
             List<string> names = new();
 
-            foreach(var hoursPerson in scheduleByPerson)
+            foreach (var hoursPerson in scheduleByPerson)
             {
-                Dictionary<string, string> dayAndHours = new();
+                List<SchedulePerDay> dayAndHours = new();
+                //Divide the schedule employee into employee and schedule
                 List<string> hoursPersonDiv = hoursPerson.Split('=').ToList();
+
+                //Divide the schedule by days
                 List<string> daysHours = hoursPersonDiv[1].Split(',').ToList();
-                List<string> days = daysHours.Select(d => d.Substring(0,2)).ToList();
+
+                //Divide the days and the hours
+                List<string> days = daysHours.Select(d => d.Substring(0, 2)).ToList();
                 List<string> hours = daysHours.Select(d => d[2..]).ToList();
 
-                for (int i = 0; i < days.Count; i++) 
+                for (int i = 0; i < days.Count; i++)
                 {
-                    dayAndHours.Add(days[i], hours[i]);
+                    DateTime starHour = Convert.ToDateTime(hours[i].Split('-')[0]);
+                    DateTime endHour = Convert.ToDateTime(hours[i].Split('-')[1]);
+                    dayAndHours.Add(new SchedulePerDay(days[i], starHour, endHour));
                 }
 
+                //Adds the employee schedule
                 EmployeeSchedule employeeSchedule = new EmployeeSchedule(hoursPersonDiv[0], dayAndHours);
                 employeeSchedules.Add(employeeSchedule);
             }

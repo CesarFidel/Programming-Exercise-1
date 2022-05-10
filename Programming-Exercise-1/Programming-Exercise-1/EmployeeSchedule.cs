@@ -8,12 +8,12 @@ namespace Programming_Exercise_1
 {
     class EmployeeSchedule
     {
-        public EmployeeSchedule(string employeeName, Dictionary<string, string> schedulePerDay)
+        public EmployeeSchedule(string employeeName, List<SchedulePerDay> schedulesPerDay)
         {
             EmployeeName = employeeName;
-            SchedulePerDay = schedulePerDay;
+            SchedulesPerDay = schedulesPerDay;
         }
         public string EmployeeName { get; set; }
-        public  Dictionary<string, string> SchedulePerDay { get; set; }
+        public  List<SchedulePerDay> SchedulesPerDay { get; set; }
     }
 }
