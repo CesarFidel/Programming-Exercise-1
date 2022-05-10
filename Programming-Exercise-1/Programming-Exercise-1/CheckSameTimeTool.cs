@@ -15,13 +15,40 @@ namespace Programming_Exercise_1
             if (ValidateString(schedule))
             {
                 var employeeSchedules = GetScheduleByEmployee(schedule);
-                return "Valid string";
+                string employeeCoincided = GetEmployeesCoincided(employeeSchedules);
+                return employeeCoincided;
             }
             else
             {
                 return "Not valid string";
             }
 
+        }
+
+        private static string GetEmployeesCoincided(List<EmployeeSchedule> employeeSchedules)
+        {
+            string result = "";
+            if (employeeSchedules.Count == 1)
+                return "There are needed 2 or more employees";
+            else
+            {
+                for (int i = 0; i < employeeSchedules.Count; i++)
+                {
+                    for (int j = i + 1; j < employeeSchedules.Count; j++)
+                    {
+                        for (int k = 0; k < employeeSchedules[i].SchedulesPerDay.Count; k++)
+                        {
+                            for (int l = 0; l < employeeSchedules[j].SchedulesPerDay.Count; l++)
+                            {
+                                if (employeeSchedules[i].SchedulesPerDay[k].Day == employeeSchedules[j].SchedulesPerDay[l].Day)
+                                    result += employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName + " has the day " + employeeSchedules[i].SchedulesPerDay[k].Day + "\n";
+                            }
+                        }                                
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>

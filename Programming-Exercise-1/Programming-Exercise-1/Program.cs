@@ -8,6 +8,7 @@ namespace Programming_Exercise_1
         {
             string inputText = TextReaderTool.ReadTextFromFile("test.txt");
             string result = CheckSameTimeTool.CheckSameTime(inputText);
+            Console.WriteLine(result);
         }
     }
 }

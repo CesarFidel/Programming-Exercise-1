@@ -14,8 +14,8 @@ namespace Programming_Exercise_1
             StartHour = startHour;
             EndHour = endHour;
         }
-        string Day { get; set; }
-        DateTime StartHour { get; set; }
-        DateTime EndHour { get; set; }
+        public string Day { get; set; }
+        public DateTime StartHour { get; set; }
+        public DateTime EndHour { get; set; }
     }
 }
