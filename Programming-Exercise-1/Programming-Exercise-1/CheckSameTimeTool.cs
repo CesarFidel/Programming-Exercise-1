@@ -10,6 +10,11 @@ namespace Programming_Exercise_1
 {
     internal static class CheckSameTimeTool
     {
+        /// <summary>
+        /// Return the coincided employees schedule or a message "Not valid string"
+        /// </summary>
+        /// <param name="schedule">The schedule in string format</param>
+        /// <returns>A string of coincidences or a message of invalid input string</returns>
         public static string CheckSameTime(string schedule)
         { 
             if (ValidateString(schedule))
@@ -25,6 +30,11 @@ namespace Programming_Exercise_1
 
         }
 
+        /// <summary>
+        /// Obtain the coincided employees schedule
+        /// </summary>
+        /// <param name="employeeSchedules">Schedule of th employees in a special format</param>
+        /// <returns>String of the tuple of employees and the number of coincidences</returns>
         private static string GetEmployeesCoincided(List<EmployeeSchedule> employeeSchedules)
         {
             List<Tuple<string, int>> listCoincidedEmployee = new(); 
@@ -33,17 +43,17 @@ namespace Programming_Exercise_1
                 return "There are needed 2 or more employees";
             else
             {
-                for (int i = 0; i < employeeSchedules.Count; i++)
+                for (int i = 0; i < employeeSchedules.Count; i++) // Employee 1
                 {
-                    for (int j = i + 1; j < employeeSchedules.Count; j++)
+                    for (int j = i + 1; j < employeeSchedules.Count; j++) // Employee 2
                     {
-                        for (int k = 0; k < employeeSchedules[i].SchedulesPerDay.Count; k++)
+                        for (int k = 0; k < employeeSchedules[i].SchedulesPerDay.Count; k++) // Schedule of the Employee 1
                         {
-                            for (int l = 0; l < employeeSchedules[j].SchedulesPerDay.Count; l++)
+                            for (int l = 0; l < employeeSchedules[j].SchedulesPerDay.Count; l++) // Schedule of the Employee 2
                             {
-                                if (employeeSchedules[i].SchedulesPerDay[k].Day == employeeSchedules[j].SchedulesPerDay[l].Day)
+                                if (employeeSchedules[i].SchedulesPerDay[k].Day == employeeSchedules[j].SchedulesPerDay[l].Day) // Compare if the two employees has the same day of work
                                 {
-                                    if (employeeSchedules[i].SchedulesPerDay[k].StartHour <= employeeSchedules[j].SchedulesPerDay[l].StartHour && employeeSchedules[i].SchedulesPerDay[k].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour)
+                                    if (employeeSchedules[i].SchedulesPerDay[k].StartHour <= employeeSchedules[j].SchedulesPerDay[l].StartHour && employeeSchedules[i].SchedulesPerDay[k].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour) // Compare the schedule of the day
                                     {
                                         Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault();
                                         if (value == null)
@@ -57,7 +67,7 @@ namespace Programming_Exercise_1
                                             listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, count));
                                         }
                                     }
-                                    else if (employeeSchedules[j].SchedulesPerDay[l].StartHour <= employeeSchedules[i].SchedulesPerDay[k].StartHour && employeeSchedules[j].SchedulesPerDay[l].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour)
+                                    else if (employeeSchedules[j].SchedulesPerDay[l].StartHour <= employeeSchedules[i].SchedulesPerDay[k].StartHour && employeeSchedules[j].SchedulesPerDay[l].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour) // Compare the schedule of the day
                                     {
                                         Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault();
                                         if (value == null)
