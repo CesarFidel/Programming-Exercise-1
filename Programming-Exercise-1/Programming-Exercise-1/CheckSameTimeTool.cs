@@ -27,6 +27,7 @@ namespace Programming_Exercise_1
 
         private static string GetEmployeesCoincided(List<EmployeeSchedule> employeeSchedules)
         {
+            List<Tuple<string, int>> listCoincidedEmployee = new(); 
             string result = "";
             if (employeeSchedules.Count == 1)
                 return "There are needed 2 or more employees";
@@ -41,13 +42,55 @@ namespace Programming_Exercise_1
                             for (int l = 0; l < employeeSchedules[j].SchedulesPerDay.Count; l++)
                             {
                                 if (employeeSchedules[i].SchedulesPerDay[k].Day == employeeSchedules[j].SchedulesPerDay[l].Day)
-                                    result += employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName + " has the day " + employeeSchedules[i].SchedulesPerDay[k].Day + "\n";
-                            }
+                                {
+                                    if (employeeSchedules[i].SchedulesPerDay[k].StartHour <= employeeSchedules[j].SchedulesPerDay[l].StartHour && employeeSchedules[i].SchedulesPerDay[k].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour)
+                                    {
+                                        Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault();
+                                        if (value == null)
+                                        {
+                                            listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, 1));
+                                        }
+                                        else
+                                        {
+                                            int count = value.Item2 + 1;
+                                            listCoincidedEmployee.Remove(value);
+                                            listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, count));
+                                        }
+                                    }
+                                    else if (employeeSchedules[j].SchedulesPerDay[l].StartHour <= employeeSchedules[i].SchedulesPerDay[k].StartHour && employeeSchedules[j].SchedulesPerDay[l].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour)
+                                    {
+                                        Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault();
+                                        if (value == null)
+                                        {
+                                            listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, 1));
+                                        }
+                                        else
+                                        {
+                                            int count = value.Item2 + 1;
+                                            listCoincidedEmployee.Remove(value);
+                                            listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, count));
+                                        }
+                                    }    
+                                    break;
+                                }
+                            }                                    
                         }                                
                     }
                 }
             }
 
+            result = ConvertTupleToString(listCoincidedEmployee);
+
+            return result;
+        }
+
+        private static string ConvertTupleToString(List<Tuple<string, int>> listCoincidedEmployee)
+        {
+            string result = "";
+            foreach(var value in listCoincidedEmployee)
+            {
+                result += value.Item1 + ": " + value.Item2 + "\n";
+            }
             return result;
         }
 
