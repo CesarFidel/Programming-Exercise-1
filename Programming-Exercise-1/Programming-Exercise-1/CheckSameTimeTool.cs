@@ -94,6 +94,11 @@ namespace Programming_Exercise_1
             return result;
         }
 
+        /// <summary>
+        /// Obtain a string of a list of tuples with the coincidences
+        /// </summary>
+        /// <param name="listCoincidedEmployee">List of coincidences</param>
+        /// <returns>A string with the names and the number of coincidences</returns>
         private static string ConvertTupleToString(List<Tuple<string, int>> listCoincidedEmployee)
         {
             string result = "";
