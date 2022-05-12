@@ -55,7 +55,7 @@ namespace Programming_Exercise_1
                                 {
                                     if (employeeSchedules[i].SchedulesPerDay[k].StartHour <= employeeSchedules[j].SchedulesPerDay[l].StartHour && employeeSchedules[i].SchedulesPerDay[k].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour) // Compare the schedule of the day
                                     {
-                                        Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault();
+                                        Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault(); //Check if exists a previous tuple
                                         if (value == null)
                                         {
                                             listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, 1));
@@ -69,7 +69,7 @@ namespace Programming_Exercise_1
                                     }
                                     else if (employeeSchedules[j].SchedulesPerDay[l].StartHour <= employeeSchedules[i].SchedulesPerDay[k].StartHour && employeeSchedules[j].SchedulesPerDay[l].EndHour >= employeeSchedules[j].SchedulesPerDay[l].StartHour) // Compare the schedule of the day
                                     {
-                                        Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault();
+                                        Tuple<string, int> value = listCoincidedEmployee.Where(ce => ce.Item1 == employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName).ToList().FirstOrDefault(); //Check if exists a previous tuple
                                         if (value == null)
                                         {
                                             listCoincidedEmployee.Add(new Tuple<string, int>(employeeSchedules[i].EmployeeName + "-" + employeeSchedules[j].EmployeeName, 1));
