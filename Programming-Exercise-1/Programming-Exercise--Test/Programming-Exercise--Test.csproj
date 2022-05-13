@@ -20,4 +20,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Programming-Exercise-1\Programming-Exercise-1.csproj" />
+  </ItemGroup>
+
 </Project>
